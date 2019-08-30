@@ -1,2 +1,2 @@
-# vTrakproj
+# vTrak
 Vehicle Tracking System
