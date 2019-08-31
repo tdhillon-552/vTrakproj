@@ -6,9 +6,9 @@ from .models import Vehicletable, Statustable
 
 
 def home(request):
-    context = {
-        'Vehicletable': Vehicletable.objects.all()
+    vehinfo = {
+        'Vehicleinfo': Vehicletable.objects.all()
     }
 
 
-    return render(request,'vTrak/home.html')
+    return render(request,'vTrak/home.html',vehinfo)

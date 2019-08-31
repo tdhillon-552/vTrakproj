@@ -1,4 +1,22 @@
 {% extends "vTrak/base.html" %}
 {% block content %}
-    <h1>Home Page</h1>
+<div class="row">
+
+<div class="col-md-4">
+  <div class="content-section">
+    <h3>Available Cars</h3>
+
+    <p class='text-muted'>blah blah
+      <ul class="list-group">
+{% for veh in Vehicleinfo  %}
+        <li class="list-group-item list-group-item-success" data-toggle="tooltip"
+        data-placement="left" title="SUV">{{veh.vehnum}}</li>
+{% endfor %}
+
+      </ul>
+    </p>
+
+  </div>
+</div>
+</div>
 {% endblock content %}
