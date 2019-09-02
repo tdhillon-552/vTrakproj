@@ -10,23 +10,23 @@
       <ul class="list-group">
 
 {% for veh in Vehicleinfo  %}
-
-
     <div id="accordion" role="tablist">
       <div class="card">
         <div class="card-header" role="tab" id="headingOne">
           <h5 class="mb-0">
-            <a data-toggle="collapse" href="#collapseInfo {{veh.id}}" aria-expanded="true" aria-controls="collapse {{veh.id}}">
+            <a data-toggle="collapse" href="#collapseInfo{{veh.id}}" aria-expanded="true" aria-controls="collapse{{veh.id}}">
                 {{veh.vehnum}}
                   {% if veh.is_lpr%} - LPR {% endif %}
+                {{veh.isforpatrol}}
             </a>
           </h5>
         </div>
 
-    <div id="collapseInfo {{veh.id}}" class="collapse" role="tabpanel" aria-labelledby="heading {{veh.id}}">
+    <div id="collapseInfo{{veh.id}}" class="collapse" role="tabpanel" aria-labelledby="heading{{veh.id}}">
       <div class="card-body">
         {{veh.vehtype}}
         {{veh.status}}
+        {{veh.isforpatrol}}
       </div>
     </div>
   </div>
