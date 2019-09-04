@@ -5,7 +5,7 @@
             <div class="content-section">
                 <h3>Available Cars</h3>
 
-                <p class='text-muted'>
+
                 <ul class="list-group">
                     {% for veh in Vehicleinfo %}
                         <div id="accordion" role="tablist">
@@ -15,7 +15,7 @@
                                            aria-controls="collapse{{ veh.id }}">
                                             {{ veh.vehnum }}
                                     </button>
-                                    {% if veh.is_lpr %} - LPR {% endif %}
+                                    <span class="text-info"> {{ veh.vehtype }} </span>
                                 </div>
 
                                 <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
@@ -29,7 +29,6 @@
                         </div>
                     {% endfor %}
                 </ul>
-                </p>
             </div>
         </div>
     </div>
