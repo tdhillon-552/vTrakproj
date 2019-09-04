@@ -14,8 +14,8 @@
                                     <button class="btn btn-primary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
                                            aria-controls="collapse{{ veh.id }}">
                                             {{ veh.vehnum }}
-                                            {% if veh.is_lpr %} - LPR {% endif %}
                                     </button>
+                                    {% if veh.is_lpr %} - LPR {% endif %}
                                 </div>
 
                                 <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
