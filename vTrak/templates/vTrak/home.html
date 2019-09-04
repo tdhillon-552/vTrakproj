@@ -15,7 +15,14 @@
                                            aria-controls="collapse{{ veh.id }}">
                                             {{ veh.vehnum }}
                                     </button>
-                                    <span class="text-info"> {{ veh.vehtype }} </span>
+                                    <span class="text-secondary"> {{ veh.vehtype }}
+                                        {% if veh.is_lpr %}
+                                        - LPR
+                                        {% endif %}
+
+
+
+                                    </span>
                                 </div>
 
                                 <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
