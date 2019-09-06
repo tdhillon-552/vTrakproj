@@ -4,35 +4,34 @@
         <div class="col-md-4">
             <div class="content-section">
                 <h3>Available Cars</h3>
+                    <ul class="list-group">
+                        {% for veh in Vehicleinfo %}
+                            {% if veh.is_active and veh.isforpatrol %}
+                                <div id="accordion" role="tablist">
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingOne">
+                                            <button class="btn btn-primary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                                   aria-controls="collapse{{ veh.id }}">
+                                                    {{ veh.vehnum }}
+                                            </button>
+                                            <small class="text-secondary"> {{ veh.vehtype }}
+                                                {% if veh.is_lpr %}
+                                                - LPR
+                                                {% endif %}
+                                            </small>
+                                        </div>
 
-                <ul class="list-group">
-                    {% for veh in Vehicleinfo %}
-                        {% if veh.is_active and veh.isforpatrol %}
-                        <div id="accordion" role="tablist">
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingOne">
-                                    <button class="btn btn-primary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                           aria-controls="collapse{{ veh.id }}">
-                                            {{ veh.vehnum }}
-                                    </button>
-                                    <small class="text-secondary"> {{ veh.vehtype }}
-                                        {% if veh.is_lpr %}
-                                        - LPR
-                                        {% endif %}
-                                    </small>
-                                </div>
-
-                                <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
-                                    <div class="card-body">
-                                        <small>Status: {{ veh.status }}</small>
-                                        {{ veh.isforpatrol }}
+                                        <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
+                                            <div class="card-body">
+                                                <small>Status: {{ veh.status }}</small>
+                                                {{ veh.isforpatrol }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
             </div>
         </div>
     </div>
