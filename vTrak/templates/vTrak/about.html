@@ -5,21 +5,9 @@
             <div class="content-section">
                 <h3>Available Cars</h3>
                     <ul class="list-group">
-                        <form>
-                            <div class="input-group">
-                                 <div class="input-group-prepend">
-                                     <span class="input-group-text">Call Sign </span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Call Sign" aria-label="" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group-btn select" id="select1">
-                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="selected">One</span> <span class="caret"></span></button>
-                                    <ul class="dropdown-menu option" role="menu">
-                                        {% for squad in Squadinfo %}
-                                        <li id="{{ squad.id }}"><a href="#">{{squad.squad_desc}}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                            </div>
+                        <form action="" method="post">{% csrf_token %}
+                            {{ form.as_p }}
+                         <input type="submit" value="Create" />
                         </form>
                     </ul>
             </div>
