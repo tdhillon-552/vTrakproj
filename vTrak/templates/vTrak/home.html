@@ -10,7 +10,6 @@
                                 <div id="accordion" role="tablist">
                                     <div class="card">
                                         <div class="card-header" role="tab" id="headingOne">
-
                                         {% if veh.status_id == 2 %}
                                             <button class="btn btn-dark" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
                                                     aria-controls="collapse{{ veh.id }}">
@@ -27,7 +26,6 @@
                                                 {{ veh.vehnum }}
                                             </button>
                                         {% endif %}
-
                                             <small class="text-secondary"> {{ veh.vehtype }}
                                                 {% if veh.is_lpr %}
                                                 - LPR
@@ -37,6 +35,7 @@
 
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                             <div class="card-body">
+                                                
                                                 <form>
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Call Sign</label>
