@@ -5,61 +5,25 @@
             <div class="content-section">
                 <h3>Available Cars</h3>
                     <ul class="list-group">
-                        {% for veh in Vehicleinfo %}
-                            {% if veh.is_active and veh.isforpatrol %}
-                                <div id="accordion" role="tablist">
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingOne">
-                                        {% if veh.status_id == 2 %}
-                                            <button class="btn btn-dark" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                            {% elif veh.status_id == 3 %}
-                                            <button class="btn btn-secondary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                            {% elif veh.status_id == 1 %}
-                                            <button class="btn btn-success" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                        {% endif %}
-                                            <small class="text-secondary"> {{ veh.vehtype }}
-                                                {% if veh.is_lpr %}
-                                                - LPR
-                                                {% endif %}
-                                            </small>
-                                        </div>
-
-                                        <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
-                                            <div class="card-body">
-                                                {% for squads in Squadinfo %}
-                                                {{ squads.id }}
-                                                {% endfor %}
-
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="formGroupExampleInput">Call Sign</label>
-                                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Call Sign">
-                                                    </div>
-                                                    <div class="btn-group dropright">
-                                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Squad
-                                                        </button>
-                                                        <div class="dropdown-menu" x-placement="right-start" style="position: absolute; transform: translate3d(111px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                         </div>
-                                    </div>
+                        <form>
+                            <div class="input-group">
+                                 <div class="input-group-prepend">
+                                     <span class="input-group-text">Call Sign </span>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
+                                <input type="text" class="form-control" placeholder="Call Sign" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="btn-group dropright">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Squad
+                                </button>
+                                <div class="dropdown-menu" x-placement="right-start" style="position: absolute; transform: translate3d(111px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    {% for squad in Squadinfo %}
+                                        <a class="dropdown-item" href="{{ squad.squad }}">{{squad.squad_desc}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </form>
                     </ul>
             </div>
         </div>
