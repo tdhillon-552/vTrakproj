@@ -37,18 +37,15 @@
 
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                             <div class="card-body">
-                                                <form class="form-horizontal">
-                                                    <fieldset>
-                                                        <div class="form-group">
-                                                            <label class="col-md-4 control-label" for="textinput">CallSign</label>
-                                                                <div class="col-md-4">
-                                                                    <input id="textinput" name="textinput" type="text" placeholder="callsign" class="form-control input-md">
-                                                                    <span class="help-block">help</span>
-                                                                </div>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Call Sign</span>
+                                                    </div>
+                                                        <input type="text" class="form-control" id="callsigninput{{ veh.id }}">
+
+
+
                                         </div>
                                     </div>
                                 </div>
