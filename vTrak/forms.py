@@ -4,4 +4,4 @@ from vTrak.models import Squadtable
 
 
 class SquadForm(forms.Form):
-    squad = forms.CharField()
+    squad = forms.ModelChoiceField(queryset=Squadtable.objects.only('squad'))
