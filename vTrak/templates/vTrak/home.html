@@ -35,7 +35,10 @@
 
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                             <div class="card-body">
-                                                
+                                                {% for squads in Squadinfo %}
+                                                {{ squads.id }}
+                                                {% endfor %}
+
                                                 <form>
                                                     <div class="form-group">
                                                         <label for="formGroupExampleInput">Call Sign</label>
