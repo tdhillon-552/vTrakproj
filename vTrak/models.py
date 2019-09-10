@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 from django.utils import timezone
 
 
@@ -28,9 +29,16 @@ class Vehicletable(models.Model):
     def __str__(self):
         return self.vehnum
 
+
 class Squadtable(models.Model):
     squad = models.CharField(max_length=20)
     squad_desc = models.CharField(max_length=30)
 
     def __str__(self):
         return self.squad
+
+
+class SquadForm(ModelForm):
+    class Meta:
+        model = Squadtable
+        fields = ['id', 'squad', 'squad_desc']

@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic import CreateView
-
-from vTrak.forms import SquadtableForm
-from .models import Vehicletable, Statustable, Squadtable
+from django.views.generic import TemplateView
+from vTrak.forms import SquadForm
+from .models import Vehicletable, Squadtable
 
 
 def home(request):
@@ -18,14 +16,6 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'vTrak/about.html', {})
-
-
-class CreateMyFormView(CreateView):
-    model = Squadtable
-    form_class = SquadtableForm
     template_name = 'vTrak/about.html'
-    success_url = 'vTrak/success.html'
-
-
-
+    form = SquadForm()
+    return render(request, template_name, {'form': form})

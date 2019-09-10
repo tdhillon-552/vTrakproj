@@ -1,9 +1,7 @@
-from django.forms import ModelForm
+from django import forms
 
 from vTrak.models import Squadtable
 
 
-class SquadtableForm(ModelForm):
-    class Meta:
-        model = Squadtable
-        fields = ['squad']
+class SquadForm(forms.Form):
+    squad = forms.CharField()
