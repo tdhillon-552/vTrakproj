@@ -29,12 +29,12 @@
                                         {% endif %}
 
                                         {% if veh.vehtype_id == 1 %}
-                                                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" alt="SUV" width="35" height="20">
+                                                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35" height="20">
                                             {% elif veh.vehtype_id == 2 %}
-                                                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" alt="Crown Vic" width="35" height="20">
+                                                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic" width="35" height="20">
                                         {% endif %}
                                             {% if veh.is_lpr %}
-                                                <img src="{% static 'vTrak/media/LPR.png' %}" alt="LPR" width="35" height="20">
+                                                <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35" height="20">
                                             {% endif %}
                                         </div>
 
