@@ -12,16 +12,13 @@
                                 </div>
                                 <input type="text" class="form-control" placeholder="Call Sign" aria-label="" aria-describedby="basic-addon1">
                             </div>
-
-                            <div class="btn-group dropright">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Squad
-                                </button>
-                                <div class="dropdown-menu" x-placement="right-start" style="position: absolute; transform: translate3d(111px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                    {% for squad in Squadinfo %}
-                                        <a class="dropdown-item" href="{{ squad.squad }}">{{squad.squad_desc}}</a>
-                                    {% endfor %}
-                                </div>
+                            <div class="input-group-btn select" id="select1">
+                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="selected">One</span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu option" role="menu">
+                                        {% for squad in Squadinfo %}
+                                        <li id="{{ squad.id }}"><a href="#">{{squad.squad_desc}}</a></li>
+                                        {% endfor %}
+                                    </ul>
                             </div>
                         </form>
                     </ul>
