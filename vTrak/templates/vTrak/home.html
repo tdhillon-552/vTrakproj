@@ -1,4 +1,5 @@
 {% extends "vTrak/base.html" %}
+{% load static %}
 {% block content %}
     <div class="row">
         <div class="col-md-4">
@@ -26,11 +27,18 @@
                                                 {{ veh.vehnum }}
                                             </button>
                                         {% endif %}
-                                            <small class="text-secondary"> {{ veh.vehtype }}
+
+                                        {% if veh.vehtype_id == 1 %}
+                                                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" width="25" height="20">
+                                            {% elif veh.vehtype_id == 2 %}
+                                                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" width="25" height="20">
+                                        {% endif %}
+
+
                                                 {% if veh.is_lpr %}
-                                                - LPR
+                                                    <img src="{% static 'vTrak/media/LPR.png' %}" width="25" height="20">
                                                 {% endif %}
-                                            </small>
+
                                         </div>
 
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
