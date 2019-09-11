@@ -18,6 +18,7 @@ def home(request):
 def about(request):
     template_name = 'vTrak/about.html'
     form = ActivityForm(request.POST or None)
-    print(form.data)
+    if form.is_valid():
+        print(form.cleaned_data)
     content = {'form': form}
     return render(request, template_name, content)
