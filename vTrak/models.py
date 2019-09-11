@@ -38,12 +38,6 @@ class Squadtable(models.Model):
         return self.squad
 
 
-class SquadForm(ModelForm):
-    class Meta:
-        model = Squadtable
-        fields = ['id', 'squad', 'squad_desc']
-
-
 class Activitytable(models.Model):
     vehnum = models.CharField(max_length=3)
     callsign = models.CharField(max_length=7)

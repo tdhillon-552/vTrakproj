@@ -5,3 +5,9 @@ from vTrak.models import Squadtable
 
 class SquadForm(forms.Form):
     squad = forms.ModelChoiceField(queryset=Squadtable.objects.only('squad'))
+
+
+class ActivityForm(forms.Form):
+    vehnum = forms.CharField(max_length=3)
+    callsign = forms.CharField(max_length=7)
+    squad = forms.CharField(max_length=20)
