@@ -4,12 +4,10 @@
         <div class="col-md-4">
             <div class="content-section">
                 <h3>Testing</h3>
-                    <ul class="list-group">
-                        <form method="POST" action="."> {% csrf_token %}
+                    <form method="POST" action=""> {% csrf_token %}
                             {{ form.as_p }}
                             <button type="submit">Send</button>
                         </form>
-                    </ul>
             </div>
         </div>
     </div>
