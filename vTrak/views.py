@@ -17,5 +17,11 @@ def home(request):
 
 def about(request):
     template_name = 'vTrak/about.html'
-    form = SquadForm()
-    return render(request, template_name, {'form': form})
+    form = SquadForm(data=request.POST or None)
+    if form.is_valid():
+        print(form.squad)
+        form = SquadForm()
+    else:
+        print("failed")
+    content = {'form': form}
+    return render(request, template_name, content)
