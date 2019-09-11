@@ -10,4 +10,4 @@ class SquadForm(forms.Form):
 class ActivityForm(forms.Form):
     vehnum = forms.CharField(max_length=3)
     callsign = forms.CharField(max_length=7)
-    squad = forms.CharField(max_length=20)
+    squad = forms.ModelChoiceField(queryset=Squadtable.objects.only('squad'))
