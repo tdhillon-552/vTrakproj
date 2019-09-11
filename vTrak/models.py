@@ -42,3 +42,8 @@ class SquadForm(ModelForm):
     class Meta:
         model = Squadtable
         fields = ['id', 'squad', 'squad_desc']
+
+class Activitytable(models.Model):
+    vehnum = models.CharField(max_length=3)
+    whohas = models.CharField(max_length=7)
+    squad = models.CharField(max_length=20)
