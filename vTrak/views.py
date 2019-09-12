@@ -5,14 +5,17 @@ from .models import Vehicletable, Squadtable, Activitytable
 
 
 def home(request):
-    squadinfo = {
-        'Squadinfo': Squadtable.objects.all()
-    }
-    vehinfo = {
-        'Vehicleinfo': Vehicletable.objects.all()
-    }
 
-    return render(request, 'vTrak/home.html', vehinfo, squadinfo)
+    form = ActivityForm(request.POST or None)
+    if form.is_valid():
+        dbsave = Activitytable.objects.create(**form.cleaned_data)
+        form = ActivityForm()
+    content = {
+        'form': form,
+        'Squadinfo': Squadtable.objects.all(),
+        'Vehicleinfo': Vehicletable.objects.all(),
+    }
+    return render(request, 'vTrak/home.html', content)
 
 
 def about(request):

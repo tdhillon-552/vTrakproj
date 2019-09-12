@@ -40,24 +40,9 @@
 
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                             <div class="card-body">
-                                                {% for squads in Squadinfo %}
-                                                {{ squads.id }}
-                                                {% endfor %}
-
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="formGroupExampleInput">Call Sign</label>
-                                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Call Sign">
-                                                    </div>
-                                                    <div class="btn-group dropright">
-                                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Squad
-                                                        </button>
-                                                        <div class="dropdown-menu" x-placement="right-start" style="position: absolute; transform: translate3d(111px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                        </div>
-                                                    </div>
+                                                <form method="POST" action=""> {% csrf_token %}
+                                                    {{ form.as_p }}
+                                                    <button type="submit">Send</button>
                                                 </form>
                                             </div>
                                          </div>
