@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from vTrak.forms import SquadForm, ActivityForm
-from .models import Vehicletable, Squadtable
+from .models import Vehicletable, Squadtable, Activitytable
 
 
 def home(request):
@@ -19,6 +19,8 @@ def about(request):
     template_name = 'vTrak/about.html'
     form = ActivityForm(request.POST or None)
     if form.is_valid():
-        print(form.cleaned_data)
+        dbsave = Activitytable.objects.create(**form.cleaned_data)
+        form = ActivityForm
+
     content = {'form': form}
     return render(request, template_name, content)
