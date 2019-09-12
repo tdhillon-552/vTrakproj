@@ -42,3 +42,4 @@ class Activitytable(models.Model):
     vehnum = models.CharField(max_length=3)
     callsign = models.CharField(max_length=7)
     squad = models.CharField(max_length=20)
+    created_on = models.DateTimeField(auto_now_add=True)
