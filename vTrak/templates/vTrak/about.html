@@ -5,7 +5,35 @@
             <div class="content-section">
                 <h3>Testing</h3>
                     <form method="POST" action=""> {% csrf_token %}
-                            {{ form.as_p }}
+                        <p>
+                            <input type="" name="vehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
+                        </p>
+                        <p>
+                        <label for="id_callsign">Callsign:</label>
+                            <input type="text" name="callsign" maxlength="7" required id="id_callsign">
+                        </p>
+                        <p>
+                            <label for="id_squad">Squad:</label>
+                                <select name="squad" required id="id_squad">
+                                      <option value="" selected>---------</option>
+
+                                      <option value="1">Squad 1</option>
+
+                                      <option value="2">Squad 2</option>
+
+                                      <option value="3">Squad 3</option>
+
+                                      <option value="4">Squad 4</option>
+
+                                      <option value="5">Squad 5</option>
+
+                                      <option value="6">Squad 6</option>
+
+                                      <option value="7">Squad 7</option>
+
+                                      <option value="8">Other</option>
+                                </select></p>
+
                             <button type="submit">Send</button>
                         </form>
             </div>

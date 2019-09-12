@@ -41,8 +41,36 @@
                                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                             <div class="card-body">
                                                 <form method="POST" action=""> {% csrf_token %}
-                                                    {{ veh.vehnum }}
-                                                    {{ form.as_p }}
+                                                    <p>
+                                                        <input type="hidden" name="vehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
+                                                    </p>
+                                                    <p>
+                                                        <label for="id_callsign">Callsign:</label>
+                                                        <input type="text" name="callsign" maxlength="7" required id="id_callsign">
+                                                    </p>
+                                                    <p>
+                                                        <label for="id_squad">Squad:</label>
+                                                            <select name="squad" required id="id_squad">
+                                                                  <option value="" selected>---------</option>
+
+                                                                  <option value="1">Squad 1</option>
+
+                                                                  <option value="2">Squad 2</option>
+
+                                                                  <option value="3">Squad 3</option>
+
+                                                                  <option value="4">Squad 4</option>
+
+                                                                  <option value="5">Squad 5</option>
+
+                                                                  <option value="6">Squad 6</option>
+
+                                                                  <option value="7">Squad 7</option>
+
+                                                                  <option value="8">Other</option>
+                                                            </select>
+                                                    </p>
+
                                                     <button type="submit">Check Out</button>
                                                 </form>
                                             </div>
