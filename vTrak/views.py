@@ -8,6 +8,7 @@ def home(request):
 
     form = ActivityForm(request.POST or None)
     if form.is_valid():
+        print(form.data)
         dbsave = Activitytable.objects.create(**form.cleaned_data)
         form = ActivityForm()
     content = {
@@ -24,6 +25,5 @@ def about(request):
     if form.is_valid():
         dbsave = Activitytable.objects.create(**form.cleaned_data)
         form = ActivityForm
-
     content = {'form': form}
     return render(request, template_name, content)

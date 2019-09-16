@@ -1,16 +1,6 @@
 {% extends "vTrak/base.html" %}
 {% load static %}
 {% block javascript %}
-    <script>
-        function AddData(){
-            var vehnum = $("#id_vehnum").val();
-            var callsign = $("#id_callsign").val();
-            var squad = $("#id_squad").val();
-            console.log(callsign)
-        }
-    document.getElementById("submittbutton").onclick = function() {AddData()};
-
-  </script>
 {% endblock %}
 
 
