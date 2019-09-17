@@ -8,7 +8,7 @@ def home(request):
 
     form = ActivityForm(request.POST or None)
     if form.is_valid():
-        print(form.data)
+        print(form.cleaned_data['vehnum'])
         dbsave = Activitytable.objects.create(**form.cleaned_data)
         form = ActivityForm()
     content = {
