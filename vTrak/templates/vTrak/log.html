@@ -1,0 +1,12 @@
+{% extends "vTrak/base.html" %}
+{% block content %}
+
+    {% for log in ActivityForm %}
+        {{ log.as_table }}
+
+    {% endfor %}
+
+
+
+
+{% endblock content %}
