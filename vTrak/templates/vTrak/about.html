@@ -1,41 +1,89 @@
 {% extends "vTrak/base.html" %}
+{% load static %}
 {% block content %}
     <div class="row">
         <div class="col-md-4">
             <div class="content-section">
-                <h3>Testing</h3>
-                    <form method="POST" action=""> {% csrf_token %}
-                        <p>
-                            <input type="" name="vehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
-                        </p>
-                        <p>
-                        <label for="id_callsign">Callsign:</label>
-                            <input type="text" name="callsign" maxlength="7" required id="id_callsign">
-                        </p>
-                        <p>
-                            <label for="id_squad">Squad:</label>
-                                <select name="squad" required id="id_squad">
-                                      <option value="" selected>---------</option>
+                <h3>Available Cars</h3>
+                    <ul class="list-group">
+                        {% for veh in Vehicleinfo %}
+                            {% if veh.is_active and veh.isforpatrol %}
+                                        <div class="card-header" role="tab" id="headingOne">
+                                        {% if veh.status_id == 2 %}
+                                            <button class="btn btn-danger" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                                    aria-controls="collapse{{ veh.id }}">
+                                                {{ veh.vehnum }}
+                                            </button>
+                                            {% elif veh.status_id == 3 %}
+                                            <button class="btn btn-secondary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                                    aria-controls="collapse{{ veh.id }}">
+                                                {{ veh.vehnum }}
+                                            </button>
+                                            <small>in use by: {{ Activityinfo.vehnum }} </small>
 
-                                      <option value="1">Squad 1</option>
 
-                                      <option value="2">Squad 2</option>
+                                            {% elif veh.status_id == 1 %}
+                                            <button class="btn btn-success" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                                    aria-controls="collapse{{ veh.id }}">
+                                                {{ veh.vehnum }}
+                                            </button>
+                                        {% endif %}
 
-                                      <option value="3">Squad 3</option>
+                                        {% if veh.vehtype_id == 1 %}
+                                                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35" height="20">
+                                            {% elif veh.vehtype_id == 2 %}
+                                                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic" width="35" height="20">
+                                        {% endif %}
+                                            {% if veh.is_lpr %}
+                                                <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35" height="20">
+                                            {% endif %}
+                                        </div>
 
-                                      <option value="4">Squad 4</option>
+                                        <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
+                                            <div class="card-body">
 
-                                      <option value="5">Squad 5</option>
+                                                {% if veh.status_id == 1 %}
+                                                    <form method="POST" action=""> {% csrf_token %}
+                                                    <p>
+                                                        <input type="hidden" name="vehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
+                                                    </p>
+                                                    <p>
+                                                        <label for="id_callsign">Callsign:</label>
+                                                        <input type="text" name="callsign" maxlength="7" required id="id_callsign">
+                                                    </p>
+                                                    <p>
+                                                        <label for="id_squad">Squad:</label>
+                                                            <select name="squad" required id="id_squad">
+                                                                  <option value="" selected>---------</option>
 
-                                      <option value="6">Squad 6</option>
+                                                                  <option value="1">Squad 1</option>
 
-                                      <option value="7">Squad 7</option>
+                                                                  <option value="2">Squad 2</option>
 
-                                      <option value="8">Other</option>
-                                </select></p>
+                                                                  <option value="3">Squad 3</option>
 
-                            <button type="submit">Send</button>
-                        </form>
+                                                                  <option value="4">Squad 4</option>
+
+                                                                  <option value="5">Squad 5</option>
+
+                                                                  <option value="6">Squad 6</option>
+
+                                                                  <option value="7">Squad 7</option>
+
+                                                                  <option value="8">Other</option>
+                                                            </select>
+                                                    </p>
+
+                                                    <button id=submitbutton type="submit">Check Out</button>
+                                                </form>
+                                                {% endif %}
+
+
+                                            </div>
+                                         </div>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
             </div>
         </div>
     </div>

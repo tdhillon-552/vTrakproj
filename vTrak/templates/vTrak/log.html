@@ -1,10 +1,23 @@
 {% extends "vTrak/base.html" %}
 {% block content %}
 
-    {% for log in ActivityForm %}
-        {{ log.as_table }}
+<table border="1">
+    <tr>
+        <th>Vehicle</th>
+        <th>Callsign</th>
+        <th>Squad</th>
+        <th>Time Checked Out</th>
+    </tr>
+    {% for log in Activityinfo %}
 
+    <tr>
+        <td> {{ log.vehnum }} </td>
+        <td> {{ log.callsign }} </td>
+        <td> {{ log.squad }} </td>
+        <td> {{ log.created_on }} </td>
+    </tr>
     {% endfor %}
+</table>
 
 
 

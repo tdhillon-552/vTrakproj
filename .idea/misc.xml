@@ -3,6 +3,9 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="ProjectResources">
+    <resource url="django" location="$PROJECT_DIR$/vTrak/__init__.py" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (newnew)" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
