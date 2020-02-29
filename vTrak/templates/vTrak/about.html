@@ -19,7 +19,7 @@
                                                     aria-controls="collapse{{ veh.id }}">
                                                 {{ veh.vehnum }}
                                             </button>
-                                            <small>in use by: {{ Activityinfo.vehnum }} </small>
+                                            <small>in use by: {{ veh.callsigninuse }} </small>
 
 
                                             {% elif veh.status_id == 1 %}

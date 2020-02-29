@@ -25,6 +25,8 @@ class Vehicletable(models.Model):
     status = models.ForeignKey('Statustable', on_delete=models.PROTECT)
     is_active = models.BooleanField(default='False')
     datetaken = models.DateTimeField(default=timezone.now)
+    callsigninuse = models.CharField(max_length=7,default=False)
+
 
     def __str__(self):
         return self.vehnum
