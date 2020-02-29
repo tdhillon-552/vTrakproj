@@ -27,7 +27,7 @@
                                                     aria-controls="collapse{{ veh.id }}">
                                                 {{ veh.vehnum }}
                                             </button>
-                                            <small>in use by: {{ veh.callsigninuse }} </small>
+                                            <small>in use by: {{ veh.callsigninuse.upper }} </small>
                                         {% elif veh.status_id == 1 %}
                                             <button class="btn btn-success" data-toggle="modal" href="#Modal{{ veh.id }}" aria-expanded="true"
                                                     aria-controls="collapse{{ veh.id }}">
