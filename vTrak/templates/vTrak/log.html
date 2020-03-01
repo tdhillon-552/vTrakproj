@@ -1,23 +1,33 @@
 {% extends "vTrak/base.html" %}
 {% block content %}
-
+ {% comment %}
 <table border="1">
-    <tr>
-        <th>Vehicle</th>
-        <th>Callsign</th>
-        <th>Squad</th>
-        <th>Time Checked Out</th>
-    </tr>
     {% for log in Activityinfo %}
 
     <tr>
+        <td> {{ forloop.counter }}</td>
         <td> {{ log.vehnum }} </td>
-        <td> {{ log.callsign }} </td>
-        <td> {{ log.squad }} </td>
-        <td> {{ log.created_on }} </td>
     </tr>
     {% endfor %}
 </table>
+{% endcomment %}
+    <ul>
+        {% for obj in Activityinfo %}
+            {% if forloop.first %}
+                <li>
+            {% endif %}
+        <a>{{ forloop.counter }} - {{obj.vehnum}}</a>
+        {% if forloop.counter|divisibleby:3 and not forloop.first %}
+            </li>
+            <li>
+        {% endif %}
+        {% if forloop.last %}
+            </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+
 
 {% for vehicletest in anothertest %}
     <p>

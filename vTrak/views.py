@@ -8,7 +8,7 @@ def home(request):
     if form.is_valid():
         print("Console Log: Vehicle " + form.cleaned_data['vehnum'] + " is being checked out.")
         Vehicletable.objects.filter(vehnum=form.cleaned_data['vehnum']).update(status_id='3')
-        dbsave = Activitytable.objects.create(**form.cleaned_data)
+        Activitytable.objects.create(**form.cleaned_data)
         form = ActivityForm()
     content = {
         'form': form,
