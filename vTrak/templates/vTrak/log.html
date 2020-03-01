@@ -11,21 +11,21 @@
     {% endfor %}
 </table>
 {% endcomment %}
-    <ul>
+    <table border="3">
         {% for obj in Activityinfo %}
             {% if forloop.first %}
-                <li>
+                <tr>
             {% endif %}
-        <a>{{ forloop.counter }} - {{obj.vehnum}}</a>
-        {% if forloop.counter|divisibleby:3 and not forloop.first %}
-            </li>
-            <li>
+        <td>{{ forloop.counter }}   -    {{obj.vehnum}}</td>
+        {% if forloop.counter|divisibleby:4 and not forloop.first %}
+            </tr>
+            <tr>
         {% endif %}
         {% if forloop.last %}
-            </li>
+            </tr>
         {% endif %}
         {% endfor %}
-    </ul>
+    </table>
 
 
 
