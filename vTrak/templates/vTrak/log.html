@@ -16,7 +16,13 @@
             {% if forloop.first %}
                 <tr>
             {% endif %}
-        <td>{{ forloop.counter }}   -    {{obj.vehnum}}</td>
+        <td>
+        <div class="card">
+            <div class="card-body">
+                {{ forloop.counter }}   -    {{obj.vehnum}}
+            </div>
+        </div>
+        </td>
         {% if forloop.counter|divisibleby:4 and not forloop.first %}
             </tr>
             <tr>
