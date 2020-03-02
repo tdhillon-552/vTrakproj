@@ -18,3 +18,5 @@ class ClearCar(forms.Form):
     backtoclear = forms.CheckboxInput()
 
 
+class VehSearchForm(forms.Form):
+    vehnum = forms.CharField(max_length=3)

@@ -1,3 +1,4 @@
+
 {% extends "vTrak/base.html" %}
 {% load static %}
 {% block javascript %}
@@ -99,7 +100,18 @@
 
                                     <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
                                         <div class="card-body">
-
+                                            {% if veh.status_id == 3 %}
+                                                <form method="POST" action=""> {% csrf_token %}
+                                                    <p>
+                                                        <input type="hidden" name="clearedvehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
+                                                    </p>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" required id="backtoclear{{ veh.vehnum }}" value="checkbox{{ veh.vehnum }}">
+                                                        <label class="custom-control-label" for="backtoclear{{ veh.vehnum }}">Check to Clear Unit</label>
+                                                    </div>
+                                                    <button id=submitbutton type="submit">Clear</button>
+                                                </form>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -111,3 +123,4 @@
         </div>
     </div>
 {% endblock content %}
+

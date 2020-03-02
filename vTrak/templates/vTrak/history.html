@@ -1,0 +1,35 @@
+{% extends "vTrak/base.html" %}
+{% block content %}
+
+    <form id="role-form" method="POST" action=""> {% csrf_token %}
+            <p>
+                <label for="id_vehnum">Vehicle Number:</label>
+                <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
+            </p>
+
+        </div>
+            <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    <p>
+        {% if results %}
+            <table class="table table-bordered">
+            <tr>
+                <th>Vehicle Number</th>
+                <th>Call sign</th>
+                <th>Squad</th>
+                <th>Check out Time</th>
+            </tr>
+            {% for displayresults in results %}
+                <tr>
+                    <td>{{ displayresults.vehnum }}</td>
+                    <td>{{ displayresults.callsign }}</td>
+                    <td>{{ displayresults.squad }}</td>
+                    <td>{{ displayresults.created_on }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    </p>
+
+{% endblock content %}
