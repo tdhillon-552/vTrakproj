@@ -1,7 +1,7 @@
 {% extends "vTrak/base.html" %}
 {% block content %}
 
-    <form id="role-form" method="POST" action=""> {% csrf_token %}
+    <form id="role-form" method="GET" action="">
             <p>
                 <label for="id_vehnum">Vehicle Number:</label>
                 <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">

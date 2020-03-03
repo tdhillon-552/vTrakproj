@@ -1,3 +1,5 @@
+import csv
+from django.http import HttpResponse
 from django.shortcuts import render
 from vTrak.forms import ActivityForm, ClearCar, VehSearchForm
 from .models import Vehicletable, Squadtable, Activitytable
@@ -73,24 +75,20 @@ def log(request):
 
 def history(request):
 
-    if request.method == "POST":
-        searcher = VehSearchForm(request.POST)
+    if request.GET:
+        searcher = VehSearchForm(request.GET)
 
         if searcher.is_valid():
             newsearch = searcher.cleaned_data['vehnum']
             print("Console Log: Vehicle " + newsearch + " is being searched.")
             results = Activitytable.objects.all().filter(vehnum=newsearch).order_by('-created_on')
-            searcher = VehSearchForm()
-
     else:
-        searcher = VehSearchForm(request.POST)
-        results = None
+        searcher = VehSearchForm(request.GET)
+        results = VehSearchForm(request.GET)
 
     content = {
         'results': results,
         'searcher': searcher,
-        'Vehicleinfo': Vehicletable.objects.all(),
-        'Activityinfo': Activitytable.objects.all().order_by('-created_on'),
-
     }
     return render(request, 'vTrak/history.html', content)
+
