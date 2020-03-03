@@ -80,6 +80,7 @@ def history(request):
 
         if searcher.is_valid():
             newsearch = searcher.cleaned_data['vehnum']
+            request.session['vehnumtoexport'] = newsearch
             print("Console Log: Vehicle " + newsearch + " is being searched.")
             results = Activitytable.objects.all().filter(vehnum=newsearch).order_by('-created_on')
     else:
@@ -91,4 +92,21 @@ def history(request):
         'searcher': searcher,
     }
     return render(request, 'vTrak/history.html', content)
+
+
+def exportcsv(request):
+
+    vehnumtoexport = request.session.get('vehnumtoexport')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export-' + vehnumtoexport + '.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Vehicle Number', 'Call Sign', 'Squad', 'Check out Time'])
+    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'created_on').filter(vehnum=vehnumtoexport).order_by('-created_on')
+
+    for exports in export:
+        writer.writerow(exports)
+
+    return response
+
 

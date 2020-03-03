@@ -1,16 +1,20 @@
 {% extends "vTrak/base.html" %}
 {% block content %}
-
+<p>
     <form id="role-form" method="GET" action="">
-            <p>
-                <label for="id_vehnum">Vehicle Number:</label>
-                <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
-            </p>
+    <p>
+        <label for="id_vehnum">Vehicle Number:</label>
+        <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
+    </p>
 
-        </div>
-            <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
-        </div>
+    </div>
+    <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
+    </div>
     </form>
+</p>
+    <p>
+        <a class="btn btn-primary" href="/report" role="button">Export List</a>
+    </p>
     <p>
         {% if results %}
             <table class="table table-bordered">
