@@ -47,7 +47,7 @@ def about(request):
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
-                Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1')
+                Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1', callsigninuse='')
                 print("Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCar()
     else:
