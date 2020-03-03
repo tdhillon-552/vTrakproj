@@ -1,39 +1,32 @@
 {% extends "vTrak/base.html" %}
+{% load static %}
 {% block content %}
-<p>
+
     <form id="role-form" method="GET" action="">
-    <p>
-        <label for="id_vehnum">Vehicle Number:</label>
-        <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
-    </p>
-
-    </div>
-    <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
-    </div>
-    </form>
-</p>
-    <p>
+            <label for="id_vehnum">Vehicle Number:</label>
+            <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
+            <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary" href="/report" role="button">Export List</a>
-    </p>
-    <p>
-        {% if results %}
-            <table class="table table-bordered">
-            <tr>
-                <th>Vehicle Number</th>
-                <th>Call sign</th>
-                <th>Squad</th>
-                <th>Check out Time</th>
-            </tr>
-            {% for displayresults in results %}
-                <tr>
-                    <td>{{ displayresults.vehnum }}</td>
-                    <td>{{ displayresults.callsign }}</td>
-                    <td>{{ displayresults.squad }}</td>
-                    <td>{{ displayresults.created_on }}</td>
-                </tr>
-            {% endfor %}
-            </table>
-        {% endif %}
-    </p>
+    </form>
 
+    {% if results %}
+        <div class="table responsive" style="height: 600px; overflow: auto">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Vehicle Number</th>
+                    <th>Call sign</th>
+                    <th>Squad</th>
+                    <th>Check out Time</th>
+                </tr>
+                {% for displayresults in results %}
+                    <tr>
+                        <td>{{ displayresults.vehnum }}</td>
+                        <td>{{ displayresults.callsign }}</td>
+                        <td>{{ displayresults.squad }}</td>
+                        <td>{{ displayresults.created_on }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 {% endblock content %}

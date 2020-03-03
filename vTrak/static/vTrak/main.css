@@ -82,3 +82,12 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
