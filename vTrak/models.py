@@ -11,7 +11,7 @@ class Statustable(models.Model):
 
 
 class Typetable(models.Model):
-    type = models.CharField(max_length=10)
+    type = models.CharField(max_length=20)
 
     def __str__(self):
         return self.type
@@ -44,4 +44,4 @@ class Activitytable(models.Model):
     vehnum = models.CharField(max_length=3)
     callsign = models.CharField(max_length=7)
     squad = models.CharField(max_length=20)
-    created_on = models.DateTimeField(auto_now_add=True)
+    checkout = models.DateTimeField(auto_now_add=True)

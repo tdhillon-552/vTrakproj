@@ -66,8 +66,8 @@ def log(request):
     car = 791
     content = {
         'Vehicleinfo': Vehicletable.objects.all(),
-        'Activityinfo': Activitytable.objects.all().order_by('-created_on'),
-        'anothertest': Activitytable.objects.only('callsign').filter(vehnum=car).order_by('-created_on')[:1],
+        'Activityinfo': Activitytable.objects.all().order_by('-checkout'),
+        'anothertest': Activitytable.objects.only('callsign').filter(vehnum=car).order_by('-checkout')[:1],
 
     }
     return render(request, 'vTrak/log.html', content)
@@ -82,7 +82,7 @@ def history(request):
             newsearch = searcher.cleaned_data['vehnum']
             request.session['vehnumtoexport'] = newsearch
             print("Console Log: Vehicle " + newsearch + " is being searched.")
-            results = Activitytable.objects.all().filter(vehnum=newsearch).order_by('-created_on')
+            results = Activitytable.objects.all().filter(vehnum=newsearch).order_by('-checkout')
     else:
         searcher = VehSearchForm(request.GET)
         results = VehSearchForm(request.GET)
@@ -102,7 +102,7 @@ def exportcsv(request):
     response['Content-Disposition'] = 'attachment; filename="export-' + vehnumtoexport + '.csv"'
     writer = csv.writer(response)
     writer.writerow(['Vehicle Number', 'Call Sign', 'Squad', 'Check out Time'])
-    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'created_on').filter(vehnum=vehnumtoexport).order_by('-created_on')
+    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'checkout').filter(vehnum=vehnumtoexport).order_by('-checkout')
 
     for exports in export:
         writer.writerow(exports)
