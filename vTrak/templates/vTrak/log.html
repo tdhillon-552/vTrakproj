@@ -13,20 +13,22 @@
 </table>
 {% endcomment %}
     <div class="d-flex flex-wrap">
-                    {% for veh in Vehicleinfo %}
-                        <div class="card" style="width: 300px">
-                            <div class="card-header" role="tab" id="headingOne">
-                                <button class="btn btn-success">
-                                    {{ forloop.counter }} - {{veh.vehnum}}
-                                </button>
-                                {% if veh.vehtype_id == 1 %}
-                                    <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35" height="20">
-                                {% elif veh.vehtype_id == 2 %}
-                                    <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic" width="35" height="20">
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
+        {% for veh in Vehicleinfo %}
+            <div class="card" style="width: 350px">
+                <div class="card-header" role="tab" id="headingOne">
+                    <button class="btn btn-success">
+                        {{ forloop.counter }} - {{ veh.vehnum }}
+                    </button>
+                    {% if veh.vehtype_id == 1 %}
+                        <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35"
+                             height="20">
+                    {% elif veh.vehtype_id == 2 %}
+                        <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic"
+                             width="35" height="20">
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
 

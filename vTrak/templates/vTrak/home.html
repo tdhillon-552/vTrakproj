@@ -1,126 +1,142 @@
+{# TODO: MAJOR: Make the page a table with dynamic size. #}
+{# TODO: work on timing the cars in and out. #}
 
 {% extends "vTrak/base.html" %}
 {% load static %}
 {% block javascript %}
 
-
-
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="content-section">
-                <h3>Available Cars</h3>
-                <ul class="list-group">
-                    {% for veh in Vehicleinfo %}
-                        {% if veh.is_active and veh.isforpatrol %}
-                            <div id="accordion" role="tablist">
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingOne">
-                                        {% if veh.status_id == 2 %}
-                                            <button class="btn btn-danger" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                        {% elif veh.status_id == 3 %}
-                                            <button class="btn btn-secondary" data-toggle="collapse" href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                            <small>in use by: <span class="badge badge-info">{{ veh.callsigninuse.upper }} </span> </small>
-                                        {% elif veh.status_id == 1 %}
-                                            <button class="btn btn-success" data-toggle="modal" href="#Modal{{ veh.id }}" aria-expanded="true"
-                                                    aria-controls="collapse{{ veh.id }}">
-                                                {{ veh.vehnum }}
-                                            </button>
-                                        {% endif %}
+    <h3>Available Cars</h3>
+    <div class="d-flex flex-wrap">
+        {% for veh in Vehicleinfo %}
+            {% if veh.is_active and veh.isforpatrol %}
+                <div id="accordion" role="tablist">
+                    <div class="card" style="width: 350px">
+                        <div class="card-header" role="tab" id="headingOne">
+                            {% if veh.status_id == 2 %}
+                                <button class="btn btn-danger" data-toggle="collapse"
+                                        href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                        aria-controls="collapse{{ veh.id }}">
+                                    {{ veh.vehnum }}
+                                </button>
+                            {% elif veh.status_id == 3 %}
+                                <button class="btn btn-secondary" data-toggle="collapse"
+                                        href="#collapseInfo{{ veh.id }}" aria-expanded="true"
+                                        aria-controls="collapse{{ veh.id }}">
+                                    {{ veh.vehnum }}
+                                </button>
+                                <small>in use by: <span class="badge badge-info">{{ veh.callsigninuse.upper }} </span>
+                                </small>
+                            {% elif veh.status_id == 1 %}
+                                <button class="btn btn-success" data-toggle="modal" href="#Modal{{ veh.id }}"
+                                        aria-expanded="true"
+                                        aria-controls="collapse{{ veh.id }}">
+                                    {{ veh.vehnum }}
+                                </button>
+                            {% endif %}
 
-                                        {% if veh.vehtype_id == 1 %}
-                                            <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35" height="20">
-                                        {% elif veh.vehtype_id == 2 %}
-                                            <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic" width="35" height="20">
-                                        {% endif %}
-                                        {% if veh.is_lpr %}
-                                            <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35" height="20">
-                                        {% endif %}
-                                    </div>
-                                    {% if veh.status_id == 1 %}
-                                        <div class="modal hide fade " id="Modal{{ veh.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <form id="role-form" method="POST" action=""> {% csrf_token %}
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Vehicle {{ veh.vehnum }}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>
-                                                                <input type="hidden" name="vehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
-                                                            </p>
-
-                                                            <p>
-                                                                <label for="id_callsign">Callsign:</label>
-                                                                <input type="text" name="callsign" maxlength="7" required id="id_callsign">
-                                                            </p>
-                                                            <p>
-                                                                <label for="id_squad">Squad:</label>
-                                                                <select name="squad" required id="id_squad">
-                                                                    <option value="" selected>---------</option>
-
-                                                                    <option value="1">Squad 1</option>
-
-                                                                    <option value="2">Squad 2</option>
-
-                                                                    <option value="3">Squad 3</option>
-
-                                                                    <option value="4">Squad 4</option>
-
-                                                                    <option value="5">Squad 5</option>
-
-                                                                    <option value="6">Squad 6</option>
-
-                                                                    <option value="7">Squad 7</option>
-
-                                                                    <option value="8">Other</option>
-                                                                </select>
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button id=submitbutton type="submit" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                            {% if veh.vehtype_id == 1 %}
+                                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV"
+                                     width="35" height="20">
+                            {% elif veh.vehtype_id == 2 %}
+                                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right"
+                                     alt="Crown Vic" width="35" height="20">
+                            {% endif %}
+                            {% if veh.is_lpr %}
+                                <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35"
+                                     height="20">
+                            {% endif %}
+                        </div>
+                        {% if veh.status_id == 1 %}
+                            <div class="modal hide fade " id="Modal{{ veh.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form id="role-form" method="POST" action=""> {% csrf_token %}
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                    Vehicle {{ veh.vehnum }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
                                             </div>
-                                        </div>
-                                    {% endif %}
+                                            <div class="modal-body">
+                                                <p>
+                                                    <input type="hidden" name="vehnum" maxlength="3" required
+                                                           id="id_vehnum" value="{{ veh.vehnum }}">
+                                                </p>
 
-                                    <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ veh.id }}">
-                                        <div class="card-body">
-                                            {% if veh.status_id == 3 %}
-                                                <form method="POST" action=""> {% csrf_token %}
-                                                    <p>
-                                                        <input type="hidden" name="clearedvehnum" maxlength="3" required id="id_vehnum" value="{{ veh.vehnum }}">
-                                                    </p>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" required id="backtoclear{{ veh.vehnum }}" value="checkbox{{ veh.vehnum }}">
-                                                        <label class="custom-control-label" for="backtoclear{{ veh.vehnum }}">Check to Clear Unit</label>
-                                                    </div>
-                                                    <button id=submitbutton type="submit">Clear</button>
-                                                </form>
-                                            {% endif %}
-                                        </div>
+                                                <p>
+                                                    <label for="id_callsign">Callsign:</label>
+                                                    <input type="text" name="callsign" maxlength="7" required
+                                                           id="id_callsign">
+                                                </p>
+                                                <p>
+                                                    <label for="id_squad">Squad:</label>
+                                                    <select name="squad" required id="id_squad">
+                                                        <option value="" selected>---------</option>
+
+                                                        <option value="1">1</option>
+
+                                                        <option value="2">2</option>
+
+                                                        <option value="3">3</option>
+
+                                                        <option value="4">4</option>
+
+                                                        <option value="5">5</option>
+
+                                                        <option value="6">6</option>
+
+                                                        <option value="7">7</option>
+
+                                                        <option value="8">Other</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close
+                                                </button>
+                                                <button id=submitbutton type="submit" class="btn btn-primary">Save
+                                                    changes
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+
+                        <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
+                             aria-labelledby="heading{{ veh.id }}">
+                            <div class="card-body">
+                                {% if veh.status_id == 3 %}
+                                    <form method="POST" action=""> {% csrf_token %}
+                                        <p>
+                                            <input type="hidden" name="clearedvehnum" maxlength="3" required
+                                                   id="id_vehnum" value="{{ veh.vehnum }}">
+                                        </p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" required
+                                                   id="backtoclear{{ veh.vehnum }}"
+                                                   value="checkbox{{ veh.vehnum }}">
+                                            <label class="custom-control-label" for="backtoclear{{ veh.vehnum }}">Check
+                                                to Clear Unit</label>
+                                        </div>
+                                        <button id=submitbutton type="submit">Clear</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock content %}
+
 
