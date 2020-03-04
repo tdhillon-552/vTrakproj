@@ -115,18 +115,11 @@
                             <div class="card-body">
                                 {% if veh.status_id == 3 %}
                                     <form method="POST" action=""> {% csrf_token %}
-                                        <p>
                                             <input type="hidden" name="clearedvehnum" maxlength="3" required
                                                    id="id_vehnum" value="{{ veh.vehnum }}">
-                                        </p>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" required
-                                                   id="backtoclear{{ veh.vehnum }}"
-                                                   value="checkbox{{ veh.vehnum }}">
-                                            <label class="custom-control-label" for="backtoclear{{ veh.vehnum }}">Check
-                                                to Clear Unit</label>
-                                        </div>
-                                        <button id=submitbutton type="submit">Clear</button>
+                                            <input type="checkbox" required id="backtoclear{{ veh.vehnum }}"
+                                                   value="checkbox{{ veh.vehnum }}" style="display: none" checked>
+                                        <button id=submitbutton type="submit" class="btn btn-info">Clear Vehicle</button>
                                     </form>
                                 {% endif %}
                             </div>
