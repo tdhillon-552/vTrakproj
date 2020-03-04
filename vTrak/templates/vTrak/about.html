@@ -27,8 +27,8 @@
                                         aria-controls="collapse{{ veh.id }}">
                                     {{ veh.vehnum }}
                                 </button>
-                                <small>in use by: <span class="badge badge-info">{{ veh.callsigninuse.upper }} </span>
-                                </small>
+                                <div style="display: inline">in use by: <span class="badge badge-info">{{ veh.callsigninuse.upper }} </span>
+                                </div>
                             {% elif veh.status_id == 1 %}
                                 <button class="btn btn-success" data-toggle="modal" href="#Modal{{ veh.id }}"
                                         aria-expanded="true"
