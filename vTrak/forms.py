@@ -13,7 +13,7 @@ class ActivityForm(forms.Form):
     squad = forms.ModelChoiceField(queryset=Squadtable.objects.only('squad'))
 
 
-class ClearCar(forms.Form):
+class ClearCarForm(forms.Form):
     clearedvehnum = forms.CharField(max_length=3)
     backtoclear = forms.CheckboxInput()
 

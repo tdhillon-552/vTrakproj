@@ -1,30 +1,31 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render
-from vTrak.forms import ActivityForm, ClearCar, VehSearchForm
+from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm
 from .models import Vehicletable, Squadtable, Activitytable
 
 
 def home(request):
     if request.method == "POST":
         setAssigned = ActivityForm(request.POST)
-        setClear = ClearCar(request.POST)
+        setClear = ClearCarForm(request.POST)
 
         if setAssigned.is_valid():
             assignedcar = setAssigned.cleaned_data['vehnum']
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
-            Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3', callsigninuse=setAssigned.cleaned_data['callsign'])
+            Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
+                                                                   callsigninuse=setAssigned.cleaned_data['callsign'])
             Activitytable.objects.create(**setAssigned.cleaned_data)
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1')
                 print("Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
-                setClear = ClearCar()
+                setClear = ClearCarForm()
 
     else:
         setAssigned = ActivityForm(request.POST)
-        setClear = ClearCar(request.POST)
+        setClear = ClearCarForm(request.POST)
     content = {
         'setAssigned': setAssigned,
         'setClear': setClear,
@@ -42,12 +43,14 @@ def about(request):
         if setAssigned.is_valid():
             assignedcar = setAssigned.cleaned_data['vehnum']
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
-            Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3', callsigninuse=setAssigned.cleaned_data['callsign'])
+            Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
+                                                                   callsigninuse=setAssigned.cleaned_data['callsign'])
             Activitytable.objects.create(**setAssigned.cleaned_data)
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
-                Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1', callsigninuse='')
+                Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
+                                                                                                  callsigninuse='')
                 print("Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCar()
     else:
@@ -63,18 +66,17 @@ def about(request):
 
 
 def log(request):
-    car = 791
+    # car = 791
     content = {
         'Vehicleinfo': Vehicletable.objects.all(),
         'Activityinfo': Activitytable.objects.all().order_by('-checkout'),
-        'anothertest': Activitytable.objects.only('callsign').filter(vehnum=car).order_by('-checkout')[:1],
+        # 'anothertest': Activitytable.objects.only('callsign').filter(vehnum=car).order_by('-checkout')[:1],
 
     }
     return render(request, 'vTrak/log.html', content)
 
 
 def history(request):
-
     if request.GET:
         searcher = VehSearchForm(request.GET)
 
@@ -95,18 +97,16 @@ def history(request):
 
 
 def exportcsv(request):
-
     vehnumtoexport = request.session.get('vehnumtoexport')
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="export-' + vehnumtoexport + '.csv"'
     writer = csv.writer(response)
     writer.writerow(['Vehicle Number', 'Call Sign', 'Squad', 'Check out Time'])
-    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'checkout').filter(vehnum=vehnumtoexport).order_by('-checkout')
+    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'checkout').filter(
+        vehnum=vehnumtoexport).order_by('-checkout')
 
     for exports in export:
         writer.writerow(exports)
 
     return response
-
-

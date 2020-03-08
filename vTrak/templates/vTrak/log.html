@@ -1,38 +1,30 @@
 {% extends "vTrak/base.html" %}
 {% load static %}
 {% block content %}
- {% comment %}
-<table border="1">
-    {% for log in Activityinfo %}
 
-    <tr>
-        <td> {{ forloop.counter }}</td>
-        <td> {{ log.vehnum }} </td>
-    </tr>
-    {% endfor %}
-</table>
-{% endcomment %}
-    <div class="d-flex flex-wrap">
-        {% for veh in Vehicleinfo %}
-            <div class="card" style="width: 350px">
-                <div class="card-header" role="tab" id="headingOne">
-                    <button class="btn btn-success">
-                        {{ forloop.counter }} - {{ veh.vehnum }}
-                    </button>
-                    {% if veh.vehtype_id == 1 %}
-                        <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV" width="35"
-                             height="20">
-                    {% elif veh.vehtype_id == 2 %}
-                        <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right" alt="Crown Vic"
-                             width="35" height="20">
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
+    <div class="table responsive" style="height: 600px; overflow: auto">
+        <table class="table table-bordered">
+            <tr>
+                <th>Vehicle Number</th>
+                <th>Call sign</th>
+                <th>Squad</th>
+                <th>Check out Time</th>
+            </tr>
+            {% for displayresults in Activityinfo %}
+                <tr>
+                    <td>{{ displayresults.vehnum }}</td>
+                    <td>{{ displayresults.callsign }}</td>
+                    <td>{{ displayresults.squad }}</td>
+                    <td>{{ displayresults.checkout }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 
 
 
+
+{% comment %}
 {% for vehicletest in anothertest %}
     <p>
     callsign: {{ vehicletest.callsign}}
@@ -40,4 +32,6 @@
     </p>
 
     {% endfor %}
+
+{% endcomment %}
 {% endblock content %}
