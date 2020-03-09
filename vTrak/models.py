@@ -20,10 +20,10 @@ class Typetable(models.Model):
 class Vehicletable(models.Model):
     vehnum = models.CharField(max_length=3)
     vehtype = models.ForeignKey('Typetable', on_delete=models.PROTECT)
-    is_lpr = models.BooleanField(default='False')
-    isforpatrol = models.BooleanField(default='False')
+    is_lpr = models.BooleanField()
+    isforpatrol = models.BooleanField()
     status = models.ForeignKey('Statustable', on_delete=models.PROTECT)
-    is_active = models.BooleanField(default='False')
+    is_active = models.BooleanField()
     datetaken = models.DateTimeField(default=timezone.now)
     callsigninuse = models.CharField(max_length=7, default=" ", blank=True)
 
@@ -45,3 +45,5 @@ class Activitytable(models.Model):
     callsign = models.CharField(max_length=7)
     squad = models.CharField(max_length=20)
     checkout = models.DateTimeField(auto_now_add=True)
+    # checkin = models.DateTimeField(null=True, blank=True)
+
