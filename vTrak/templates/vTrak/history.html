@@ -2,15 +2,14 @@
 {% load static %}
 {% block content %}
 
-    <form id="role-form" method="GET" action="">
+    <form id="role-form" method="POST" action=""> {% csrf_token %}
             <label for="id_vehnum">Vehicle Number:</label>
             <input type="text" name="vehnum" maxlength="3" required id="id_vehnum">
             <button id=submitbutton type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary" href="/report" role="button">Export List</a>
     </form>
     <br>
-
-    {% if results %}
+    {% if searcher.has_changed %}
         <div class="table responsive" style="height: 600px; overflow: auto">
             <table class="table table-bordered">
                 <tr>
