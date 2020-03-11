@@ -1,6 +1,5 @@
 from django.urls import path
 
-from vTrak.views import exportcsv
 from . import views
 
 urlpatterns = [
