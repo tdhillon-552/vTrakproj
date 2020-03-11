@@ -41,7 +41,9 @@ class Squadtable(models.Model):
 
 
 class Activitytable(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
     vehnum = models.CharField(max_length=3)
+    status = models.ForeignKey('Statustable', on_delete=models.PROTECT)
     callsign = models.CharField(max_length=7)
     squad = models.CharField(max_length=20)
     checkout = models.DateTimeField(auto_now_add=True)
