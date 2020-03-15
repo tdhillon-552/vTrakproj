@@ -1,14 +1,15 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render
-from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm
-from .models import Vehicletable, Squadtable, Activitytable
+from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm, DownCarForm
+from .models import Vehicletable, Squadtable, Activitytable, Downtable
 
 
 def home(request):
     if request.method == "POST":
         setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
+        setDown = DownCarForm(request.POST)
 
         if setAssigned.is_valid():
             assignedcar = setAssigned.cleaned_data['vehnum']
@@ -27,12 +28,19 @@ def home(request):
                 print("Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
+        if setDown.is_valid():
+            print("Vehicle is down")
+            setDown = DownCarForm()
+
     else:
         setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
+        setDown = DownCarForm(request.POST)
+
     content = {
         'setAssigned': setAssigned,
         'setClear': setClear,
+        'setDown': setDown,
         'Squadinfo': Squadtable.objects.all(),
         'Vehicleinfo': Vehicletable.objects.all(),
     }

@@ -1,6 +1,6 @@
 from django import forms
 
-from vTrak.models import Squadtable, Statustable
+from vTrak.models import Squadtable, Statustable, Downtable
 
 
 class SquadForm(forms.Form):
@@ -21,3 +21,9 @@ class ClearCarForm(forms.Form):
 
 class VehSearchForm(forms.Form):
     vehnum = forms.CharField(max_length=3)
+
+
+class DownCarForm(forms.Form):
+    downedvehnum = forms.CharField(max_length=3)
+    reason = forms.ModelChoiceField(queryset=Downtable.objects.only('type'))
+    description = forms.CharField(max_length=300)
