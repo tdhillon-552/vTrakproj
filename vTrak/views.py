@@ -9,21 +9,21 @@ def home(request):
     if request.method == "POST":
         setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
-        if "downveh" in request.POST:
-            print("Downing vehicle")
 
         if setAssigned.is_valid():
             assignedcar = setAssigned.cleaned_data['vehnum']
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
             Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
                                                                    callsigninuse=setAssigned.cleaned_data['callsign'])
-            Activitytable.objects.create(**setAssigned.cleaned_data)
+            Activitytable.objects.create(**setAssigned.cleaned_data, downtype_id='1')
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
-                                                                                                  callsigninuse='')
-                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], status_id='1')
+                                                                                                  callsigninuse='',)
+
+                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype_id='1',
+                                                                                                status_id='1')
                 print("Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
