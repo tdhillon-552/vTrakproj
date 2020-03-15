@@ -3,10 +3,6 @@
 {# TODO: code clean up #}
 {% extends "vTrak/base.html" %}
 {% load static %}
-{% block javascript %}
-
-{% endblock %}
-
 {% block content %}
     <h3>Available Cars</h3>
     <div class="d-flex flex-wrap">
@@ -30,8 +26,8 @@
                                 <div style="display: inline">in use by: <span class="badge badge-info">{{ veh.callsigninuse.upper }} </span>
                                 </div>
                             {% elif veh.status_id == 1 %}
-                                <button class="btn btn-success" data-toggle="modal" href="#Modal{{ veh.id }}"
-                                        aria-expanded="true"
+                                <button class="btn btn-success" data-toggle="collapse"
+                                        href="#collapseInfo{{ veh.id }}" aria-expanded="true"
                                         aria-controls="collapse{{ veh.id }}">
                                     {{ veh.vehnum }}
                                 </button>
@@ -103,10 +99,6 @@
                                                 <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close
                                                 </button>
-                                                <button id=submitbutton type="submit" name="downveh"
-                                                        class="btn btn-danger">
-                                                    Down Vehicle
-                                                </button>
                                                 <button id=submitbutton type="submit" class="btn btn-primary">Save
                                                     Changes
                                                 </button>
@@ -120,6 +112,19 @@
                         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
                              aria-labelledby="heading{{ veh.id }}">
                             <div class="card-body">
+
+                            {% if veh.status_id == 1 %}
+                                <button class="btn btn-primary" data-toggle="modal" href="#Modal{{ veh.id }}"
+                                        aria-expanded="true"
+                                        aria-controls="collapse{{ veh.id }}">
+                                    Check Out Vehicle
+                                </button>
+                                <button class="btn btn-danger">Down Vehicle</button>
+                                {% endif %}
+
+
+
+
                                 {% if veh.status_id == 3 %}
                                     <form method="POST" action=""> {% csrf_token %}
                                             <input type="hidden" name="clearedvehnum" maxlength="3" required
@@ -136,6 +141,7 @@
             {% endif %}
         {% endfor %}
     </div>
+
 {% endblock content %}
 
 
