@@ -29,7 +29,8 @@ def home(request):
         if setDown.is_valid():
             print("Vehicle " + setDown.cleaned_data['downedvehnum'] + "is down")
             Vehicletable.objects.filter(vehnum=setDown.cleaned_data['downedvehnum']).update(status_id='2')
-            Activitytable.objects.create(vehnum=setDown.cleaned_data['downedvehnum'], downtype_id='2', status_id='2', down_desc=setDown.cleaned_data['description'])
+            Activitytable.objects.create(vehnum=setDown.cleaned_data['downedvehnum'], downtype=setDown.cleaned_data['reason'],
+                                         status_id='2', down_desc=setDown.cleaned_data['description'])
 
 
             setDown = DownCarForm()

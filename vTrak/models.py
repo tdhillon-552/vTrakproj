@@ -47,7 +47,7 @@ class Activitytable(models.Model):
     callsign = models.CharField(max_length=7)
     squad = models.CharField(max_length=20)
     checkout = models.DateTimeField(auto_now_add=True)
-    downtype = models.ForeignKey('Downtable', on_delete=models.PROTECT)
+    downtype = models.CharField(max_length=20)
     down_desc = models.CharField(max_length=300)
     # checkin = models.DateTimeField(null=True, blank=True)
 
