@@ -9,6 +9,8 @@
                 <th>Call sign</th>
                 <th>Squad</th>
                 <th>Check out Time</th>
+                <th>Down Reason</th>
+                <th>Down Description</th>
             </tr>
             {% for displayresults in Activityinfo %}
                 <tr>
@@ -16,6 +18,8 @@
                     <td>{{ displayresults.callsign }}</td>
                     <td>{{ displayresults.squad }}</td>
                     <td>{{ displayresults.checkout }}</td>
+                    <td>{{  displayresults.downtype }}</td>
+                    <td>{{ displayresults.down_desc }}</td>
                 </tr>
             {% endfor %}
         </table>

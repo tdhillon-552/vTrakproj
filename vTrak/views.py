@@ -16,13 +16,13 @@ def home(request):
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
             Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
                                                                    callsigninuse=setAssigned.cleaned_data['callsign'])
-            Activitytable.objects.create(**setAssigned.cleaned_data, downtype='1')
+            Activitytable.objects.create(**setAssigned.cleaned_data, downtype='None')
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
                                                                                                   callsigninuse='',)
-                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='1', status_id='1')
+                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='None', status_id='1')
                 print("Console Log: Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
@@ -116,7 +116,7 @@ def exportcsv(request):
     response['Content-Disposition'] = 'attachment; filename="export-' + vehnumtoexport + '.csv"'
     writer = csv.writer(response)
     writer.writerow(['Vehicle Number', 'Call Sign', 'Squad', 'Check out Time'])
-    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'checkout').filter(
+    export = Activitytable.objects.values_list('vehnum', 'callsign', 'squad', 'checkout', 'downtype', 'down_desc').filter(
         vehnum=vehnumtoexport).order_by('-checkout')
 
     for exports in export:

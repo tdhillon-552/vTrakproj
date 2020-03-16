@@ -13,17 +13,23 @@
         <div class="table responsive" style="height: 600px; overflow: auto">
             <table class="table table-bordered">
                 <tr>
+                    <th>Created</th>
                     <th>Vehicle Number</th>
                     <th>Call sign</th>
                     <th>Squad</th>
                     <th>Check out Time</th>
+                    <th>Down Reason</th>
+                    <th>Down Description</th>
                 </tr>
                 {% for displayresults in results %}
                     <tr>
+                        <td>{{ displayresults.created }}</td>
                         <td>{{ displayresults.vehnum }}</td>
                         <td>{{ displayresults.callsign }}</td>
                         <td>{{ displayresults.squad }}</td>
                         <td>{{ displayresults.checkout }}</td>
+                        <td>{{ displayresults.downtype }}</td>
+                        <td>{{ displayresults.down_desc }}</td>
                     </tr>
                 {% endfor %}
             </table>
