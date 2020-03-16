@@ -16,22 +16,21 @@ def home(request):
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
             Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
                                                                    callsigninuse=setAssigned.cleaned_data['callsign'])
-            Activitytable.objects.create(**setAssigned.cleaned_data, downtype_id='1')
+            Activitytable.objects.create(**setAssigned.cleaned_data, downtype='1')
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
                                                                                                   callsigninuse='',)
-                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype_id='1', status_id='1')
+                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='1', status_id='1')
                 print("Console Log: Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
         if setDown.is_valid():
-            print("Vehicle " + setDown.cleaned_data['downedvehnum'] + "is down")
+            print("Vehicle " + setDown.cleaned_data['downedvehnum'] + " is down")
             Vehicletable.objects.filter(vehnum=setDown.cleaned_data['downedvehnum']).update(status_id='2')
             Activitytable.objects.create(vehnum=setDown.cleaned_data['downedvehnum'], downtype=setDown.cleaned_data['reason'],
                                          status_id='2', down_desc=setDown.cleaned_data['description'])
-
 
             setDown = DownCarForm()
 

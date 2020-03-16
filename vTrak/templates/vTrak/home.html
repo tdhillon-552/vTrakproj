@@ -172,21 +172,30 @@
                              aria-labelledby="heading{{ veh.id }}">
                             <div class="card-body">
 
-                            {% if veh.status_id == 1 %}
-                                <button class="btn btn-primary" data-toggle="modal" href="#Modal{{ veh.id }}"
-                                        aria-expanded="true"
-                                        aria-controls="collapse{{ veh.id }}">
-                                    Check Out Vehicle
-                                </button>
-                                <button class="btn btn-danger" data-toggle="modal" href="#ModalDown{{ veh.id }}"
-                                        aria-expanded="true"
-                                        aria-controls="collapse{{ veh.id }}">
-                                    Down Vehicle
-                                </button>
-                                {% endif %}
+                                {% if veh.status_id == 1 %}
+                                    <button class="btn btn-primary" data-toggle="modal" href="#Modal{{ veh.id }}"
+                                            aria-expanded="true"
+                                            aria-controls="collapse{{ veh.id }}">
+                                        Check Out Vehicle
+                                    </button>
+                                    <button class="btn btn-danger" data-toggle="modal" href="#ModalDown{{ veh.id }}"
+                                            aria-expanded="true"
+                                            aria-controls="collapse{{ veh.id }}">
+                                        Down Vehicle
+                                    </button>
+                                    {% endif %}
+                                {% if veh.status_id == 2 %}
+                                    <small> Put description of downed info here</small>
+                                    <form method="POST" action=""> {% csrf_token %}
 
+                                        <input type="hidden" name="clearedvehnum" maxlength="3" required
+                                               id="id_vehnum" value="{{ veh.vehnum }}">
 
-
+                                        <input type="checkbox" required id="backtoclear{{ veh.vehnum }}"
+                                               value="checkbox{{ veh.vehnum }}" style="display: none" checked>
+                                        <button id=submitbutton type="submit" class="btn btn-info">Clear Vehicle</button>
+                                    </form>
+                                    {% endif %}
 
                                 {% if veh.status_id == 3 %}
                                     <form method="POST" action=""> {% csrf_token %}
