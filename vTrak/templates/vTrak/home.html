@@ -183,6 +183,13 @@
                                     </button>
                                     {% endif %}
                                 {% if veh.status_id == 2 %}
+
+                                    {% for descript in DownDescription %}
+                                    {%  if descript.vehnum == veh.vehnum %}
+                                        {{ descript.vehnum }}
+                                        {% endif%}
+                                    {% endfor %}
+
                                     <small> Put description of downed info here</small>
                                     <form method="POST" action=""> {% csrf_token %}
 

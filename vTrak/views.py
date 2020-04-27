@@ -45,6 +45,7 @@ def home(request):
         'setDown': setDown,
         'Squadinfo': Squadtable.objects.all(),
         'Vehicleinfo': Vehicletable.objects.all(),
+        'Downdescription': Activitytable.objects.raw('SELECT TOP 1 * WHERE status_id = 2 ORDER BY created DESC'),
     }
     return render(request, 'vTrak/home.html', content)
 
@@ -123,3 +124,8 @@ def exportcsv(request):
         writer.writerow(exports)
 
     return response
+
+
+def intel(request):
+
+    return render(request, 'vTrak/intel.html')
