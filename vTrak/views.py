@@ -1,8 +1,8 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render
-from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm, DownCarForm
-from .models import Vehicletable, Squadtable, Activitytable, Downtable
+from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm, DownCarForm, IntelEnterForm
+from .models import Vehicletable, Squadtable, Activitytable, Downtable, IntelTypes, IntelStorage
 
 
 def home(request):
@@ -128,4 +128,21 @@ def exportcsv(request):
 
 def intel(request):
 
-    return render(request, 'vTrak/intel.html')
+    if request.method == "POST":
+        print("TEST")
+        setdata = IntelEnterForm(request.POST)
+
+        if setdata.is_valid():
+            print("Console Log: Log is being sent out")
+            IntelStorage.objects.create(**setdata.cleaned_data)
+            setdata = IntelEnterForm()
+    else:
+        setdata = IntelEnterForm(request.POST)
+        print("FAIL")
+
+    content = {
+        'setdata': setdata,
+        'IntelStorage': IntelStorage.objects.all(),
+    }
+
+    return render(request, 'vTrak/intel.html', content)

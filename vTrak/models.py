@@ -57,3 +57,28 @@ class Downtable(models.Model):
 
     def __str__(self):
         return self.type
+
+
+class IntelTypes(models.Model):
+    type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.type
+
+
+class IntelStorage(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=50, default='Daily Log')
+    violation = models.CharField(max_length=250)
+    casenumber = models.CharField(max_length=15)
+    synopsis = models.TextField()
+    arrestinfo = models.CharField(max_length=250)
+    susdesc = models.CharField(max_length=250)
+    susvehdesc = models.CharField(max_length=250)
+    vicinfo = models.CharField(max_length=250)
+    location = models.CharField(max_length=250)
+    dateoccurred = models.CharField(max_length=20)
+    witnessinterviewed = models.BooleanField()
+
+    def __str__(self):
+        return self.type

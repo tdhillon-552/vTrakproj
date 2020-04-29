@@ -1,5 +1,110 @@
 {% extends "vTrak/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
-intel
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="POST" action="" id="form_entry"> {% csrf_token %}
+                    {{ setdata|crispy}}
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="validateBtn">
+                        Validate
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenteredLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <table class="table">
+                                        <tr>
+                                            <th>Type</th>
+                                            <td id="val_type"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date Occurred</th>
+                                            <td id="val_date"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Violation</th>
+                                            <td id="val_violation"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Case Number</th>
+                                            <td id="val_casenumber"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Arrest Information</th>
+                                            <td id="val_arrestinfo"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Suspect Description</th>
+                                            <td id="val_susdesc"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Suspect Vehicle Description</th>
+                                            <td id="val_susvehdesc"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Suspect Vehicle Description</th>
+                                            <td id="val_susvehdesc"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Victim Information</th>
+                                            <td id="val_vicinfo"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Location</th>
+                                            <td id="val_location"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Synopsis</th>
+                                            <td id="val_synopsis"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Go Back and Edit</button>
+                                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFunc()">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+
+{% block javascript %}
+
+
+
+    function submitFunc() {
+    document.getElementById("form_entry").submit();
+    }
+
+$('#validateBtn').click(function () {
+    $('#val_date').html($('#id_dateoccurred').val());
+    $('#val_type').html($('#id_type option:selected').text());
+    $('#val_violation').html($('#id_violation').val());
+    $('#val_casenumber').html($('#id_casenumber').val());
+    $('#val_arrestinfo').html($('#id_arrestinfo').val());
+    $('#val_susdesc').html($('#id_susdesc').val());
+    $('#val_susvehdesc').html($('#id_susvehdesc').val());
+    $('#val_vicinfo').html($('#id_vicinfo').val());
+    $('#val_location').html($('#id_location').val());
+    $('#val_synopsis').html($('#id_synopsis').val());
+
+    });
+
+
+{% endblock javascript %}
