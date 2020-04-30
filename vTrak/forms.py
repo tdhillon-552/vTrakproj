@@ -32,7 +32,7 @@ class DownCarForm(forms.Form):
 
 class IntelEnterForm(forms.Form):
     type = forms.ModelChoiceField(queryset=IntelTypes.objects.only('type'), label='Intel Type')
-    dateoccurred = forms.CharField(max_length=20,label='Date Occurred')
+    dateoccurred = forms.CharField(max_length=20, label='Date Occurred')
     violation = forms.CharField(max_length=250, label='Violation')
     casenumber = forms.CharField(max_length=15, label='Case Number')
     arrestinfo = forms.CharField(max_length=250, label='Arrest Information', required=False)

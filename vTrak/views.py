@@ -45,7 +45,8 @@ def home(request):
         'setDown': setDown,
         'Squadinfo': Squadtable.objects.all(),
         'Vehicleinfo': Vehicletable.objects.all(),
-        'Downdescription': Activitytable.objects.raw('SELECT TOP 1 * WHERE status_id = 2 ORDER BY created DESC'),
+        'Downdescription': Activitytable.objects.all()[:1],
+        # 'Downdescription': Activitytable.objects.raw('SELECT TOP 1 * WHERE status_id = 2 ORDER BY created DESC'),
     }
     return render(request, 'vTrak/home.html', content)
 
@@ -54,29 +55,45 @@ def about(request):
     if request.method == "POST":
         setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
+        setDown = DownCarForm(request.POST)
+
         if setAssigned.is_valid():
             assignedcar = setAssigned.cleaned_data['vehnum']
             print("Console Log: Vehicle " + assignedcar + " is being checked out.")
             Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
                                                                    callsigninuse=setAssigned.cleaned_data['callsign'])
-            Activitytable.objects.create(**setAssigned.cleaned_data)
+            Activitytable.objects.create(**setAssigned.cleaned_data, downtype='None')
             setAssigned = ActivityForm()
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
-                                                                                                  callsigninuse='')
+                                                                                                  callsigninuse='',)
+                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='None', status_id='1')
                 print("Console Log: Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
+
+        if setDown.is_valid():
+            print("Vehicle " + setDown.cleaned_data['downedvehnum'] + " is down")
+            Vehicletable.objects.filter(vehnum=setDown.cleaned_data['downedvehnum']).update(status_id='2')
+            Activitytable.objects.create(vehnum=setDown.cleaned_data['downedvehnum'], downtype=setDown.cleaned_data['reason'],
+                                         status_id='2', down_desc=setDown.cleaned_data['description'])
+
+            setDown = DownCarForm()
+
     else:
         setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
+        setDown = DownCarForm(request.POST)
+
     content = {
         'setAssigned': setAssigned,
         'setClear': setClear,
+        'setDown': setDown,
         'Squadinfo': Squadtable.objects.all(),
         'Vehicleinfo': Vehicletable.objects.all(),
+        'Downdescription': Activitytable.objects.all().order_by('-created').filter(status_id__exact=2),
     }
-    return render(request, 'vTrak/about.html', content)
+    return render(request, 'vTrak/home.html', content)
 
 
 def log(request):

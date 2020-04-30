@@ -3,6 +3,7 @@
 {# TODO: code clean up #}
 {% extends "vTrak/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
     <h3>Available Cars</h3>
     <div class="d-flex flex-wrap">
@@ -183,11 +184,8 @@
                                     </button>
                                     {% endif %}
                                 {% if veh.status_id == 2 %}
-
-                                    {% for descript in DownDescription %}
-                                    {%  if descript.vehnum == veh.vehnum %}
-                                        {{ descript.vehnum }}
-                                        {% endif%}
+                                    {% for downdesc in Downdescription %}
+                                    {{ downdesc.down_desc }}
                                     {% endfor %}
 
                                     <small> Put description of downed info here</small>
