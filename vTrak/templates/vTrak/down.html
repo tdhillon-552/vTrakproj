@@ -10,9 +10,9 @@
         <div class="card" style="width: 350px">
         <div class="card-header" role="tab" id="headingOne">
 
-            <button class="btn btn-danger" id="downed_veh" value={{ veh.vehnum }} data-toggle="collapse"
+            <button class="btn btn-danger" onclick=LoadSubPage("{{ veh.vehnum }}","body{{ veh.vehnum }}") id="downed_veh" value={{ veh.vehnum }} data-toggle="collapse"
                     href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                    aria-controls="collapse{{ veh.id }}">
+                    aria-controls="collapse{{ veh.vehnum }}">
                 {{ veh.vehnum }}
             </button>
 
@@ -31,12 +31,9 @@
         <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
              aria-labelledby="heading{{ veh.id }}">
         <div class="card-body">
+            <div id="body{{ veh.vehnum }}">
+            </div>
 
-        {% for ddesc in Downdescription %}
-        {{ ddesc.down_desc }}
-        {% endfor %}
-
-        <small> Put description of downed info here</small>
         <form method="POST" action=""> {% csrf_token %}
 
             <input type="hidden" name="clearedvehnum" maxlength="3" required
@@ -68,20 +65,12 @@
 {% endblock content %}
 {% block javascript %}
 
-        $(downed_veh).click(function(){
-            var downed_vehicle = $('#downed_veh').text();
-            console.log(downed_vehicle);
-            $.ajax({
-                url: "{% url 'vTrak-down' %}",
-                data: downed_vehicle,
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                success: function (data) {
-                    alert(data.result);
-
-                }
-            });
-        });
-
+    function LoadSubPage(vCar,sDiv){
+    var queryStr = '{% url 'vTrak-datahistory' %}?carID='+vCar;
+    $('#'+sDiv).load(queryStr, '',
+        function(responseText, textStatus, XMLHttpRequest) { }
+        );
+    }
 
 {% endblock javascript %}
 

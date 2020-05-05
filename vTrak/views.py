@@ -2,7 +2,7 @@ import csv
 from django.http import HttpResponse
 from django.shortcuts import render
 from vTrak.forms import ActivityForm, ClearCarForm, VehSearchForm, DownCarForm, IntelEnterForm
-from .models import Vehicletable, Squadtable, Activitytable, Downtable, IntelTypes, IntelStorage
+from .models import Vehicletable, Squadtable, Activitytable, Downtable, IntelTypes, IntelStorage, CarActivity
 
 
 def home(request):
@@ -67,16 +67,11 @@ def down(request):
     else:
         setClear = ClearCarForm(request.POST)
 
-    downed_veh = request.GET.get('downed_vehicle', None)
-    print(downed_veh)
-    downed_info = Activitytable.objects.all().filter(vehnum=downed_veh, status_id=2).order_by('-created')
-
     content = {
-        'downed_info': downed_info,
+        'Vehicleinfo': Vehicletable.objects.all(),
         'setClear': setClear,
         'Squadinfo': Squadtable.objects.all(),
-        'Vehicleinfo': Vehicletable.objects.all(),
-        'Downdescription': Activitytable.objects.all().order_by('-created'),
+        'CarActivity': CarActivity.objects.all().order_by('-created'),
     }
     return render(request, 'vTrak/down.html', content)
 
@@ -148,3 +143,19 @@ def intel(request):
     }
 
     return render(request, 'vTrak/intel.html', content)
+
+
+def datahistory(request):
+
+    if request.GET.get('carID'):
+        car = request.GET['carID']
+        print("i got a get req " + car)
+    else:
+        print('failed get')
+
+    content = {
+        'downeddata': Activitytable.objects.only('down_desc').filter(vehnum=car).order_by('-checkout')[:1],
+        'CarActivity': CarActivity.objects.all(),
+    }
+
+    return render(request, 'vTrak/datahistory.html', content)

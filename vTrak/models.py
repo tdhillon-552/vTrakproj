@@ -82,3 +82,15 @@ class IntelStorage(models.Model):
 
     def __str__(self):
         return self.type
+
+
+class CarActivity(models.Model):
+    vehnum = models.CharField(max_length=3)
+    created = models.DateTimeField(auto_now_add=True)
+    status = models.ForeignKey('Statustable', on_delete=models.PROTECT)
+    down_desc = models.CharField(max_length=300)
+    is_active = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = "caractivity"
