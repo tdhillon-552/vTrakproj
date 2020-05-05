@@ -154,7 +154,7 @@ def datahistory(request):
         print('failed get')
 
     content = {
-        'downeddata': Activitytable.objects.only('down_desc').filter(vehnum=car).order_by('-checkout')[:1],
+        'downeddata': Activitytable.objects.all().filter(vehnum=car).order_by('-checkout')[:1],
         'CarActivity': CarActivity.objects.all(),
     }
 

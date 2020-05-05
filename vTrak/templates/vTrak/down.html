@@ -2,65 +2,54 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h3>Downed Cars</h3>
-<div class="d-flex flex-wrap">
-    {% for veh in Vehicleinfo %}
-    {% if veh.is_active and veh.status_id == 2 %}
-        <div id="accordion" role="tablist">
-        <div class="card" style="width: 350px">
-        <div class="card-header" role="tab" id="headingOne">
+    <h3>Downed Cars</h3>
+    <div class="d-flex flex-wrap">
+        {% for veh in Vehicleinfo %}
+            {% if veh.is_active and veh.status_id == 2 %}
+                <div id="accordion" role="tablist">
+                <div class="card" style="width: 400px">
+                <div class="card-header" role="tab" id="headingOne">
 
-            <button class="btn btn-danger" onclick=LoadSubPage("{{ veh.vehnum }}","body{{ veh.vehnum }}") id="downed_veh" value={{ veh.vehnum }} data-toggle="collapse"
-                    href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                    aria-controls="collapse{{ veh.vehnum }}">
-                {{ veh.vehnum }}
-            </button>
+                    <button class="btn btn-danger" onclick=LoadSubPage("{{ veh.vehnum }}","reason{{ veh.vehnum }}"); id="downed_veh"
+                            value={{ veh.vehnum }} data-toggle="collapse"
+                            href="#collapseInfo{{ veh.id }}" aria-expanded="true" aria-controls="collapse{{ veh.id }}">
+                        {{ veh.vehnum }}
+                    </button>
 
-            {% if veh.vehtype_id == 1 %}
-                <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV"
-                     width="35" height="20">
-            {% elif veh.vehtype_id == 2 %}
-                <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right"
-                     alt="Crown Vic" width="35" height="20">
+                    {% if veh.vehtype_id == 1 %}
+                        <img src="{% static 'vTrak/media/Vehicle-SUV.png' %}" align="right" alt="SUV"
+                             width="35" height="20">
+                    {% elif veh.vehtype_id == 2 %}
+                        <img src="{% static 'vTrak/media/VehicleCrownVic.png' %}" align="right"
+                             alt="Crown Vic" width="35" height="20">
+                    {% endif %}
+                    {% if veh.is_lpr %}
+                        <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35"
+                             height="20">
+                    {% endif %}
+                </div>
+                <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
+                     aria-labelledby="heading{{ veh.id }}">
+                <div class="card-body">
+                <div id="reason{{ veh.vehnum }}"> </div>
+
+                <form method="POST" action=""> {% csrf_token %}
+
+                    <input type="hidden" name="clearedvehnum" maxlength="3" required
+                           id="id_vehnum" value="{{ veh.vehnum }}">
+
+                    <input type="checkbox" required id="backtoclear{{ veh.vehnum }}"
+                           value="checkbox{{ veh.vehnum }}" style="display: none" checked>
+                    <button id=submitbutton type="submit" class="btn btn-info">Clear Vehicle</button>
+                </form>
             {% endif %}
-            {% if veh.is_lpr %}
-                <img src="{% static 'vTrak/media/LPR.png' %}" align="right" alt="LPR" width="35"
-                     height="20">
-            {% endif %}
+
         </div>
-        <div id="collapseInfo{{ veh.id }}" class="collapse" role="tabpanel"
-             aria-labelledby="heading{{ veh.id }}">
-        <div class="card-body">
-            <div id="body{{ veh.vehnum }}">
-            </div>
-
-        <form method="POST" action=""> {% csrf_token %}
-
-            <input type="hidden" name="clearedvehnum" maxlength="3" required
-                   id="id_vehnum" value="{{ veh.vehnum }}">
-
-            <input type="checkbox" required id="backtoclear{{ veh.vehnum }}"
-                   value="checkbox{{ veh.vehnum }}" style="display: none" checked>
-            <button id=submitbutton type="submit" class="btn btn-info">Clear Vehicle</button>
-        </form>
-    {% endif %}
-    {% if veh.status_id == 3 %}
-        <form method="POST" action=""> {% csrf_token %}
-
-            <input type="hidden" name="clearedvehnum" maxlength="3" required
-                   id="id_vehnum" value="{{ veh.vehnum }}">
-
-            <input type="checkbox" required id="backtoclear{{ veh.vehnum }}"
-                   value="checkbox{{ veh.vehnum }}" style="display: none" checked>
-            <button id=submitbutton type="submit" class="btn btn-info">Clear Vehicle</button>
-        </form>
-    {% endif %}
+        </div>
+        </div>
+        </div>
+        {% endfor %}
     </div>
-    </div>
-    </div>
-    </div>
-    {% endfor %}
-</div>
 
 {% endblock content %}
 {% block javascript %}
@@ -68,8 +57,8 @@
     function LoadSubPage(vCar,sDiv){
     var queryStr = '{% url 'vTrak-datahistory' %}?carID='+vCar;
     $('#'+sDiv).load(queryStr, '',
-        function(responseText, textStatus, XMLHttpRequest) { }
-        );
+    function(responseText, textStatus, XMLHttpRequest) { }
+    );
     }
 
 {% endblock javascript %}

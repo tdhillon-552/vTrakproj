@@ -4,9 +4,17 @@
 {% block content %}
 
     {% for data in downeddata %}
+        <table class="table">
+            <tr>
+                <th>Reason: </th>
+                <td>{{ data.down_desc }}</td>
+            </tr>
+            <tr>
+                <th>Date of Down: </th>
+                <td>{{ data.created }}</td>
+            </tr>
+        </table>
 
-
-        {{ data.down_desc}}
     {% endfor %}
 
 
