@@ -1,6 +1,3 @@
-{# TODO: work on downing a car #}
-{# TODO: work on timing the cars in and out. #}
-{# TODO: code clean up #}
 {% extends "vTrak/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -71,11 +68,11 @@
 {% endblock content %}
 {% block javascript %}
 
-        $(document).ready(function(){
+        $(downed_veh).click(function(){
             var downed_vehicle = $('#downed_veh').text();
+            console.log(downed_vehicle);
             $.ajax({
-                url: "",
-                type: "get",
+                url: "{% url 'vTrak-down' %}",
                 data: downed_vehicle,
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 success: function (data) {

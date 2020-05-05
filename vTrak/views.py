@@ -51,19 +51,11 @@ def home(request):
     return render(request, 'vTrak/home.html', content)
 
 
-def about(request):
+def down(request):
     if request.method == "POST":
-        setAssigned = ActivityForm(request.POST)
-        setClear = ClearCarForm(request.POST)
-        setDown = DownCarForm(request.POST)
 
-        if setAssigned.is_valid():
-            assignedcar = setAssigned.cleaned_data['vehnum']
-            print("Console Log: Vehicle " + assignedcar + " is being checked out.")
-            Vehicletable.objects.filter(vehnum=assignedcar).update(status_id='3',
-                                                                   callsigninuse=setAssigned.cleaned_data['callsign'])
-            Activitytable.objects.create(**setAssigned.cleaned_data, downtype='None')
-            setAssigned = ActivityForm()
+        setClear = ClearCarForm(request.POST)
+
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
@@ -72,28 +64,22 @@ def about(request):
                 print("Console Log: Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
-        if setDown.is_valid():
-            print("Vehicle " + setDown.cleaned_data['downedvehnum'] + " is down")
-            Vehicletable.objects.filter(vehnum=setDown.cleaned_data['downedvehnum']).update(status_id='2')
-            Activitytable.objects.create(vehnum=setDown.cleaned_data['downedvehnum'], downtype=setDown.cleaned_data['reason'],
-                                         status_id='2', down_desc=setDown.cleaned_data['description'])
-
-            setDown = DownCarForm()
-
     else:
-        setAssigned = ActivityForm(request.POST)
         setClear = ClearCarForm(request.POST)
-        setDown = DownCarForm(request.POST)
+
+    downed_veh = request.GET.get('downed_vehicle', None)
+    print(downed_veh)
+    downed_info = Activitytable.objects.all().filter(vehnum=downed_veh, status_id=2).order_by('-created')
 
     content = {
-        'setAssigned': setAssigned,
+        'downed_info': downed_info,
         'setClear': setClear,
-        'setDown': setDown,
         'Squadinfo': Squadtable.objects.all(),
         'Vehicleinfo': Vehicletable.objects.all(),
-        'Downdescription': Activitytable.objects.all().order_by('-created').filter(status_id__exact=2),
+        'Downdescription': Activitytable.objects.all().order_by('-created'),
     }
-    return render(request, 'vTrak/home.html', content)
+    return render(request, 'vTrak/down.html', content)
+
 
 
 def log(request):
@@ -146,7 +132,6 @@ def exportcsv(request):
 def intel(request):
 
     if request.method == "POST":
-        print("TEST")
         setdata = IntelEnterForm(request.POST)
 
         if setdata.is_valid():
