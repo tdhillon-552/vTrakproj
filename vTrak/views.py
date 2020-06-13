@@ -18,6 +18,7 @@ def home(request):
                                                                    callsigninuse=setAssigned.cleaned_data['callsign'])
             Activitytable.objects.create(**setAssigned.cleaned_data, downtype='None')
             setAssigned = ActivityForm()
+
         if setClear.is_valid():
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
@@ -35,9 +36,9 @@ def home(request):
             setDown = DownCarForm()
 
     else:
-        setAssigned = ActivityForm(request.POST)
+        setAssigned = ActivityForm(request.POST or None)
         setClear = ClearCarForm(request.POST)
-        setDown = DownCarForm(request.POST)
+        setDown = DownCarForm(request.POST or None)
 
     content = {
         'setAssigned': setAssigned,

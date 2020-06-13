@@ -27,7 +27,7 @@ class VehSearchForm(forms.Form):
 class DownCarForm(forms.Form):
     downedvehnum = forms.CharField(max_length=3)
     reason = forms.ModelChoiceField(queryset=Downtable.objects.only('type'))
-    description = forms.CharField(max_length=300)
+    description = forms.CharField(widget=forms.Textarea, max_length=300)
 
 
 class IntelEnterForm(forms.Form):

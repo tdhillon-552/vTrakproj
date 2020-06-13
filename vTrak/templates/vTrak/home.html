@@ -13,9 +13,9 @@
                     <div class="card" style="width: 350px">
                         <div class="card-header" role="tab" id="headingOne">
                             {% if veh.status_id == 2 %}
-                                <button class="btn btn-danger" data-toggle="collapse"
-                                        href="#collapseInfo{{ veh.id }}" aria-expanded="true"
-                                        aria-controls="collapse{{ veh.id }}">
+                                <button class="btn btn-danger" onclick=LoadSubPage("{{ veh.vehnum }}","reason{{ veh.vehnum }}"); id="downed_veh"
+                                        value={{ veh.vehnum }} data-toggle="collapse"
+                                        href="#collapseInfo{{ veh.id }}" aria-expanded="true" aria-controls="collapse{{ veh.id }}">
                                     {{ veh.vehnum }}
                                 </button>
                             {% elif veh.status_id == 3 %}
@@ -69,31 +69,11 @@
                                                 </p>
 
                                                 <p>
-                                                <label for="id_callsign">Callsign:</label>
-                                                <input type="text" name="callsign" maxlength="7" required
-                                                       id="id_callsign">
-                                            </p>
+                                                    {{ setAssigned.callsign|as_crispy_field }}
+
+                                                </p>
                                                 <p>
-                                                    <label for="id_squad">Squad:</label>
-                                                    <select name="squad" required id="id_squad">
-                                                        <option value="" selected>---------</option>
-
-                                                        <option value="1">1</option>
-
-                                                        <option value="2">2</option>
-
-                                                        <option value="3">3</option>
-
-                                                        <option value="4">4</option>
-
-                                                        <option value="5">5</option>
-
-                                                        <option value="6">6</option>
-
-                                                        <option value="7">7</option>
-
-                                                        <option value="8">Other</option>
-                                                    </select>
+                                                    {{ setAssigned.squad|as_crispy_field}}
                                                 </p>
                                             </div>
                                             <div class="modal-footer">
@@ -127,30 +107,9 @@
                                                     <input type="hidden" name="downedvehnum" maxlength="3" required
                                                            id="id_vehnum" value="{{ veh.vehnum }}">
                                                 </p>
-                                                <p>
-                                                    <label for="id_description">Description:</label>
-                                                    <textarea rows="4" cols="50" name="description" required id="id_description"> </textarea>
+                                                    {{ setDown.description|as_crispy_field }}
 
-                                                </p>
-                                                <p>
-
-                                                    <label for="id_reason">Reason</label>
-                                                    <select name="reason" required id="id_reason">
-                                                        <option value="" selected>---------</option>
-
-                                                        <option value="2">MDC</option>
-
-                                                        <option value="3">Mechanical</option>
-
-                                                    </select>
-                                                </p>
-
-                                                {% comment %}<p>
-                                                    <label for="id_callsign">Callsign:</label>
-                                                    <input type="text" name="callsign" maxlength="7" required
-                                                           id="id_callsign">
-                                                </p>{% endcomment %}
-
+                                                    {{ setDown.reason|as_crispy_field }}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
@@ -220,5 +179,16 @@
     </div>
 
 {% endblock content %}
+
+{% block javascript %}
+
+    function LoadSubPage(vCar,sDiv){
+    var queryStr = '{% url 'vTrak-datahistory' %}?carID='+vCar;
+    $('#'+sDiv).load(queryStr, '',
+    function(responseText, textStatus, XMLHttpRequest) { }
+    );
+    }
+
+{% endblock javascript %}
 
 
