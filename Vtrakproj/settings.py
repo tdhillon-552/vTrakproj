@@ -69,23 +69,16 @@ WSGI_APPLICATION = 'Vtrakproj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
+
 DATABASES = {
     'default': {
         'NAME': 'vtrak',
         'ENGINE': 'sql_server.pyodbc',
-        'HOST': 'localhost',
-        'USER': 'djangodb',
-        'PASSWORD': 'django',
+        'HOST': 's-pd-iv-sql6',
+        'USER': 'django',
+        'PASSWORD': 'djangodb',
         'OPTIONS': {
-            'driver': 'SQL Server Native Client 11.0',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }

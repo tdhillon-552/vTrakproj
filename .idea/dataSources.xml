@@ -10,5 +10,11 @@
         <property name="applicationName" value="DataGrip" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="s-pd-iv-sql6" uuid="4869f4e6-8aa6-4f40-8815-242f2f58db3b">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://s-pd-iv-sql6;database=vtrak</jdbc-url>
+    </data-source>
   </component>
 </project>
