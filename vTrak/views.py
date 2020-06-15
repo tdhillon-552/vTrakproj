@@ -23,7 +23,8 @@ def home(request):
             if setClear.backtoclear.check_test:
                 Vehicletable.objects.filter(vehnum=setClear.cleaned_data['clearedvehnum']).update(status_id='1',
                                                                                                   callsigninuse='',)
-                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='None', status_id='1')
+                Activitytable.objects.create(vehnum=setClear.cleaned_data['clearedvehnum'], downtype='None',
+                                             status_id='1', down_desc='Back In Service')
                 print("Console Log: Vehicle " + setClear.cleaned_data['clearedvehnum'] + " is back in service")
                 setClear = ClearCarForm()
 
