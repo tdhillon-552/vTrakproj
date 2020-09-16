@@ -11,5 +11,4 @@ urlpatterns = [
     path('intel', views.intel, name='vTrak-intel'),
     path('datahistory', views.datahistory, name='vTrak-datahistory')
 
-
 ]

@@ -73,7 +73,7 @@ def down(request):
         'Vehicleinfo': Vehicletable.objects.all(),
         'setClear': setClear,
         'Squadinfo': Squadtable.objects.all(),
-        'CarActivity': CarActivity.objects.all().order_by('-created'),
+        'Activityinfo': CarActivity.objects.all().order_by('-created'),
     }
     return render(request, 'vTrak/down.html', content)
 
